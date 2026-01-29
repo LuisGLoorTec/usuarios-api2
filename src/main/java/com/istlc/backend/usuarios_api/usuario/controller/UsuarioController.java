@@ -1,7 +1,8 @@
-package com.istlc.backend.usuarios_api.controller;
+package com.istlc.backend.usuarios_api.usuario.controller;
 
-import com.istlc.backend.usuarios_api.entity.Usuario;
-import com.istlc.backend.usuarios_api.service.UsuarioService;
+import com.istlc.backend.usuarios_api.usuario.dto.UsuarioDto;
+import com.istlc.backend.usuarios_api.usuario.entity.Usuario;
+import com.istlc.backend.usuarios_api.usuario.service.UsuarioService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,13 +23,16 @@ import java.util.List;
     }
 
     @GetMapping
-    public List<Usuario> list() {
-        return service.listar();
+    public List<UsuarioDto> listar() {
+        return service.listar()
+                .stream()
+                .map(service::toDto)
+                .toList();
     }
 
     @GetMapping("/{id}")
-    public Usuario obtener(@PathVariable Long id) {
-        return service.obtener(id);
+    public UsuarioDto obtener(@PathVariable Long id) {
+        return service.toDto(service.obtener(id));
     }
 
     @PutMapping("/{id}")

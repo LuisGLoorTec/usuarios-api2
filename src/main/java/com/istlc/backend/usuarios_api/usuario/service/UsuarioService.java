@@ -1,7 +1,8 @@
-package com.istlc.backend.usuarios_api.service;
+package com.istlc.backend.usuarios_api.usuario.service;
 
-import com.istlc.backend.usuarios_api.entity.Usuario;
-import com.istlc.backend.usuarios_api.repository.UsuarioRepository;
+import com.istlc.backend.usuarios_api.usuario.dto.UsuarioDto;
+import com.istlc.backend.usuarios_api.usuario.entity.Usuario;
+import com.istlc.backend.usuarios_api.usuario.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,5 +35,15 @@ public class UsuarioService {
 
     public void eliminar(Long id) {
         repository.deleteById(id);
+    }
+    public UsuarioDto toDto(Usuario u){
+        if (u == null) return null;
+        UsuarioDto dto = new UsuarioDto();
+        dto.setId(u.getId());
+        dto.setNombre(u.getNombre());
+        dto.setCorreo(u.getCorreo());
+        dto.setActivo(u.getActivo());
+        return dto;
+
     }
 }
